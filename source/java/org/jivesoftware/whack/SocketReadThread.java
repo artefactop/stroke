@@ -106,6 +106,7 @@ class SocketReadThread extends Thread {
             else {
                 throw new XmlPullParserException("Unknown packet type was read: " + tag);
             }
+            component.getManager().getLog().debug("Received Packet: " + packet.toXML());
             // Request the component to process the received packet
             component.processPacket(packet);
         }

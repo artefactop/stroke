@@ -340,6 +340,7 @@ public class ExternalComponent implements Component {
             try {
                 xmlSerializer.write(packet.getElement());
                 xmlSerializer.flush();
+                manager.getLog().debug("Sent Packet: " + packet.toXML());
                 // Keep track of the last time a stanza was sent to the server
                 lastActive = System.currentTimeMillis();
             } catch (IOException e) {
