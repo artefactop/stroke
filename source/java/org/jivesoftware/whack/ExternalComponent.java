@@ -132,16 +132,16 @@ public class ExternalComponent implements Component {
         // Create a pool of threads that will process requests received by this component. If more
         // threads are required then the command will be executed on the SocketReadThread process
         threadPool = new ThreadPoolExecutor(maxThreads, maxThreads, 15, TimeUnit.SECONDS,
-                        new LinkedBlockingQueue<Runnable>(), new ThreadPoolExecutor.CallerRunsPolicy());
+                new LinkedBlockingQueue<Runnable>(), new ThreadPoolExecutor.CallerRunsPolicy());
     }
 
     /**
      * Generates a connection with the server and tries to authenticate. If an error occurs in any
      * of the steps then a ComponentException is thrown.
      *
-     * @param host          the host to connect with.
-     * @param port          the port to use.
-     * @param subdomain     the subdomain that this component will be handling.
+     * @param host      the host to connect with.
+     * @param port      the port to use.
+     * @param subdomain the subdomain that this component will be handling.
      * @throws ComponentException if an error happens during the connection and authentication steps.
      */
     public void connect(String host, int port, String subdomain) throws ComponentException {
@@ -151,13 +151,12 @@ public class ExternalComponent implements Component {
             socket.connect(new InetSocketAddress(host, port), manager.getConnectTimeout());
             if (manager.getServerName() != null) {
                 this.domain = subdomain + "." + manager.getServerName();
-            }
-            else {
+            } else {
                 this.domain = subdomain;
             }
             this.subdomain = subdomain;
             // Keep these variables that will be used in case a reconnection is required
-            this.host= host;
+            this.host = host;
             this.port = port;
 
             try {
@@ -187,7 +186,7 @@ public class ExternalComponent implements Component {
 
                 // Get the answer from the server
                 XmlPullParser xpp = reader.getXPPParser();
-                for (int eventType = xpp.getEventType(); eventType != XmlPullParser.START_TAG;) {
+                for (int eventType = xpp.getEventType(); eventType != XmlPullParser.START_TAG; ) {
                     eventType = xpp.next();
                 }
 
@@ -229,16 +228,14 @@ public class ExternalComponent implements Component {
                 } catch (DocumentException e) {
                     try {
                         socket.close();
-                    }
-                    catch (IOException ioe) {
+                    } catch (IOException ioe) {
                         // Do nothing
                     }
                     throw new ComponentException(e);
                 } catch (XmlPullParserException e) {
                     try {
                         socket.close();
-                    }
-                    catch (IOException ioe) {
+                    } catch (IOException ioe) {
                         // Do nothing
                     }
                     throw new ComponentException(e);
@@ -246,27 +243,22 @@ public class ExternalComponent implements Component {
             } catch (XmlPullParserException e) {
                 try {
                     socket.close();
-                }
-                catch (IOException ioe) {
+                } catch (IOException ioe) {
                     // Do nothing
                 }
                 throw new ComponentException(e);
             }
-        }
-        catch (UnknownHostException uhe) {
+        } catch (UnknownHostException uhe) {
             try {
                 if (socket != null) socket.close();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 // Do nothing
             }
             throw new ComponentException(uhe);
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             try {
                 if (socket != null) socket.close();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 // Do nothing
             }
             throw new ComponentException(ioe);
@@ -320,6 +312,10 @@ public class ExternalComponent implements Component {
                 if (packet instanceof IQ) {
                     IQ iq = (IQ) packet;
                     IQ.Type iqType = iq.getType();
+                    if (iq.getID() == null) {
+                        manager.getLog().warn("SEVERE - Received an IQ with no ID: " + iq.toXML());
+                        return;
+                    }
                     if (IQ.Type.result == iqType || IQ.Type.error == iqType) {
                         // The server got an answer to an IQ packet that was sent from the component
                         IQResultListener iqResultListener = resultListeners.remove(iq.getID());
@@ -327,9 +323,8 @@ public class ExternalComponent implements Component {
                         if (iqResultListener != null) {
                             try {
                                 iqResultListener.receivedAnswer(iq);
-                            }
-                            catch (Exception e) {
-                                 manager.getLog().error("Error processing answer of remote entity", e);
+                            } catch (Exception e) {
+                                manager.getLog().error("Error processing answer of remote entity", e);
                             }
                             return;
                         }
@@ -347,8 +342,7 @@ public class ExternalComponent implements Component {
                 xmlSerializer.flush();
                 // Keep track of the last time a stanza was sent to the server
                 lastActive = System.currentTimeMillis();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 // Log the exception
                 manager.getLog().error(e);
                 if (!shutdown) {
@@ -392,19 +386,16 @@ public class ExternalComponent implements Component {
                     try {
                         writer.write("</stream:stream>");
                         xmlSerializer.flush();
-                    }
-                    catch (IOException e) {
+                    } catch (IOException e) {
                         // Do nothing
                     }
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 // Do nothing
             }
             try {
                 socket.close();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 manager.getLog().error(e);
             }
         }
@@ -417,7 +408,7 @@ public class ExternalComponent implements Component {
      */
     public void connectionLost() {
         // Ensure that only one thread will try to reconnect.
-        synchronized(this) {
+        synchronized (this) {
             if (reconnecting) {
                 return;
             }
@@ -439,8 +430,7 @@ public class ExternalComponent implements Component {
                 // connection
                 if (shutdown) {
                     disconnect();
-                }
-                else {
+                } else {
                     // Component is back again working so start it up again
                     start();
                 }
@@ -449,8 +439,7 @@ public class ExternalComponent implements Component {
                 // Wait for 5 seconds until the next retry
                 try {
                     Thread.sleep(5000);
-                }
-                catch (InterruptedException e1) {
+                } catch (InterruptedException e1) {
                     // Do nothing
                 }
             }
@@ -462,12 +451,12 @@ public class ExternalComponent implements Component {
      * Adds an {@link IQResultListener} that will be invoked when an IQ result is sent to the
      * server itself and is of type result or error. This is a nice way for the server to
      * send IQ packets to other XMPP entities and be waked up when a response is received back.<p>
-     *
+     * <p/>
      * Once an IQ result was received, the listener will be invoked and removed from
      * the list of listeners.
      *
-     * @param id the id of the IQ packet being sent from the server to an XMPP entity.
-     * @param listener the IQResultListener that will be invoked when an answer is received
+     * @param id            the id of the IQ packet being sent from the server to an XMPP entity.
+     * @param listener      the IQResultListener that will be invoked when an answer is received
      * @param timeoutmillis The amount of milliseconds after which waiting for a response should be stopped.
      */
     void addIQResultListener(String id, IQResultListener listener, long timeoutmillis) {
@@ -490,16 +479,14 @@ public class ExternalComponent implements Component {
                     try {
                         writer.write(" ");
                         writer.flush();
-                    }
-                    catch (IOException e) {
+                    } catch (IOException e) {
                         // Log the exception
                         manager.getLog().error(e);
                         if (!shutdown) {
                             // Connection was lost so try to reconnect
                             connectionLost();
                         }
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         // Do nothing
                     }
                 }
@@ -508,18 +495,18 @@ public class ExternalComponent implements Component {
     }
 
     /**
-	 * Timer task that will remove Listeners that wait for results to IQ stanzas
-	 * that have timed out. Time out values can be set to each listener
-	 * individually by adjusting the timeout value in the third parameter of
-	 * {@link ExternalComponent#addIQResultListener(String, IQResultListener, long)}.
-	 *
-	 * @author Guus der Kinderen, guus@nimbuzz.com
-	 */
+     * Timer task that will remove Listeners that wait for results to IQ stanzas
+     * that have timed out. Time out values can be set to each listener
+     * individually by adjusting the timeout value in the third parameter of
+     * {@link ExternalComponent#addIQResultListener(String, IQResultListener, long)}.
+     *
+     * @author Guus der Kinderen, guus@nimbuzz.com
+     */
     private class TimeoutTask extends TimerTask {
 
         /**
          * Iterates over and removes all timed out results.<p>
-         *
+         * <p/>
          * The map that keeps track of timeout values is ordered by timeout
          * date. This way, iteration can be stopped as soon as the first value
          * has been found that didn't timeout yet.
@@ -552,5 +539,5 @@ public class ExternalComponent implements Component {
                 it.remove();
             }
         }
-	}
+    }
 }
