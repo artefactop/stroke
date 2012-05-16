@@ -26,8 +26,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.prefs.Preferences;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.xmpp.component.Component;
 import org.xmpp.component.ComponentException;
 import org.xmpp.component.ComponentManager;
@@ -46,8 +45,7 @@ import org.xmpp.packet.Packet;
  */
 public class ExternalComponentManager implements ComponentManager {
 
-	private static final Logger Logger = LoggerFactory.getLogger(ExternalComponentManager.class);
-	
+	private static final Logger Logger = org.apache.log4j.Logger.getLogger(ExternalComponentManager.class);
     /**
      * Keeps the IP address or hostname of the server. This value will be used only for creating
      * connections.
