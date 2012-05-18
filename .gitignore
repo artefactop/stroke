@@ -1,6 +1,7 @@
 target/
 ./target/
 .idea/
+*.class
 *.iml
 *.iws
 *.DS_store
