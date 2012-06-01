@@ -18,7 +18,7 @@
  * limitations under the License.
  */
 
-package org.jivesoftware.whack.util;
+package org.lib.stroke.util;
 
 
 import java.util.Date;
@@ -59,7 +59,7 @@ public class TaskEngine {
      * Constructs a new task engine.
      */
     private TaskEngine() {
-        timer = new Timer("timer-whack", true);
+        timer = new Timer("timer-stroke", true);
         executor = Executors.newCachedThreadPool(new ThreadFactory() {
 
             final AtomicInteger threadNumber = new AtomicInteger(1);
@@ -67,7 +67,7 @@ public class TaskEngine {
             public Thread newThread(Runnable runnable) {
                 // Use our own naming scheme for the threads.
                 Thread thread = new Thread(Thread.currentThread().getThreadGroup(), runnable,
-                        "pool-whack" + threadNumber.getAndIncrement(), 0);
+                        "pool-stroke" + threadNumber.getAndIncrement(), 0);
                 // Make workers daemon threads.
                 thread.setDaemon(true);
                 if (thread.getPriority() != Thread.NORM_PRIORITY) {

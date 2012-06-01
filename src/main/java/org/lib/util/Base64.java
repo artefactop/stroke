@@ -1,4 +1,4 @@
-package org.jivesoftware.util;
+package org.lib.util;
 
 /**
  * <p>Encodes and decodes to and from Base64 notation.</p>

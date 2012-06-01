@@ -18,7 +18,7 @@
  * limitations under the License.
  */
 
-package org.jivesoftware.whack;
+package org.lib.stroke;
 
 import java.util.Hashtable;
 import java.util.Map;
@@ -32,7 +32,6 @@ import org.xmpp.component.ComponentException;
 import org.xmpp.component.ComponentManager;
 import org.xmpp.component.ComponentManagerFactory;
 import org.xmpp.component.IQResultListener;
-import org.xmpp.component.Log;
 import org.xmpp.packet.IQ;
 import org.xmpp.packet.JID;
 import org.xmpp.packet.Packet;
@@ -95,8 +94,6 @@ public class ExternalComponentManager implements ComponentManager {
      */
     private Map<Component, ExternalComponent> components = new Hashtable<Component, ExternalComponent>();
 
-    @Deprecated
-    private Log oldLogger;
 
     /**
      * Constructs a new ExternalComponentManager that will make connections
@@ -121,8 +118,6 @@ public class ExternalComponentManager implements ComponentManager {
         }
         this.host = host;
         this.port = port;
-
-        createDummyLogger();
 
         // Set this ComponentManager as the current component manager
         ComponentManagerFactory.setComponentManager(this);
@@ -283,7 +278,7 @@ public class ExternalComponentManager implements ComponentManager {
 
     private String getPreferencesPrefix() {
         if (preferencesPrefix == null) {
-            preferencesPrefix = "whack." + domain + ".";
+            preferencesPrefix = "stroke." + domain + ".";
         }
         return preferencesPrefix;
     }
@@ -335,60 +330,7 @@ public class ExternalComponentManager implements ComponentManager {
         return true;
     }
 
-    @Deprecated
-    public Log getLog() {
-        return oldLogger;
-    }
-
-    private void createDummyLogger() {
-        this.oldLogger = new Log() {
-            public void error(String message) {
-                Logger.error(message);
-            }
-
-            public void error(String message, Throwable throwable) {
-                Logger.error(message, throwable);
-            }
-
-            public void error(Throwable throwable) {
-                Logger.error("", throwable);
-            }
-
-            public void warn(String message) {
-                Logger.warn(message);
-            }
-
-            public void warn(String message, Throwable throwable) {
-                Logger.warn(message, throwable);
-            }
-
-            public void warn(Throwable throwable) {
-                Logger.warn("", throwable);
-            }
-
-            public void info(String message) {
-                Logger.info(message);
-            }
-
-            public void info(String message, Throwable throwable) {
-                Logger.info(message, throwable);
-            }
-
-            public void info(Throwable throwable) {
-                Logger.info("", throwable);
-            }
-
-            public void debug(String message) {
-                Logger.debug(message);
-            }
-
-            public void debug(String message, Throwable throwable) {
-                Logger.debug(message, throwable);
-            }
-
-            public void debug(Throwable throwable) {
-                Logger.debug("", throwable);
-            }
-        };
+    public Logger getLog() {
+        return Logger;
     }
 }

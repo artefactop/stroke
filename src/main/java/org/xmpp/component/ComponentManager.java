@@ -20,6 +20,7 @@
 
 package org.xmpp.component;
 
+import org.apache.log4j.Logger;
 import org.xmpp.component.IQResultListener;
 import org.xmpp.packet.IQ;
 import org.xmpp.packet.Packet;
@@ -146,5 +147,5 @@ public interface ComponentManager {
      *
      * @return a Log instance.
      */
-    public Log getLog();
+    public Logger getLog();
 }

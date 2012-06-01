@@ -18,7 +18,7 @@
  * limitations under the License.
  */
 
-package org.jivesoftware.whack;
+package org.lib.stroke;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -40,8 +40,8 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.XMLWriter;
 import org.dom4j.io.XPPPacketReader;
-import org.jivesoftware.whack.util.StringUtils;
-import org.jivesoftware.whack.util.TaskEngine;
+import org.lib.stroke.util.StringUtils;
+import org.lib.stroke.util.TaskEngine;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
