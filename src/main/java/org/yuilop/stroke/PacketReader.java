@@ -1,6 +1,4 @@
-package org.jivesoftware.whack;
-
-import java.io.IOException;
+package org.yuilop.stroke;
 
 /**
  * @author Matt Tucker

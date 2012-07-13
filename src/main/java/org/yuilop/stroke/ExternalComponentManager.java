@@ -18,7 +18,7 @@
  * limitations under the License.
  */
 
-package org.jivesoftware.whack;
+package org.yuilop.stroke;
 
 import java.util.Hashtable;
 import java.util.Map;
@@ -283,7 +283,7 @@ public class ExternalComponentManager implements ComponentManager {
 
     private String getPreferencesPrefix() {
         if (preferencesPrefix == null) {
-            preferencesPrefix = "whack." + domain + ".";
+            preferencesPrefix = "stroke." + domain + ".";
         }
         return preferencesPrefix;
     }

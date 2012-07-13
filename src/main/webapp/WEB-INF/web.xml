@@ -61,7 +61,7 @@
 
     <servlet>
         <servlet-name>ComponentServlet</servlet-name>
-        <servlet-class>org.jivesoftware.whack.container.ComponentServlet</servlet-class>
+        <servlet-class>org.jivesoftware.stroke.container.ComponentServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 

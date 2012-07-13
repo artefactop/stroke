@@ -18,9 +18,9 @@
  * limitations under the License.
  */
 
-package org.jivesoftware.whack.util;
+package org.yuilop.stroke.util;
 
-import org.jivesoftware.util.Base64;
+import org.yuilop.util.Base64;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

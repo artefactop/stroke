@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.jivesoftware.util;
+package org.yuilop.util;
 
 import java.util.List;
 import java.util.Map;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.jivesoftware.util;
+package org.yuilop.util;
 
 import org.dom4j.Document;
 import org.dom4j.Element;

@@ -50,7 +50,7 @@
  * For more information about Tea, please see http://opensource.go.com/.
  */
 
-package org.jivesoftware.util;
+package org.yuilop.util;
 
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package org.jivesoftware.util;
+package org.yuilop.util;
 
 import java.util.Map;
 
 /**
  * Interface to listen for property events. Use the
- * {@link org.jivesoftware.util.PropertyEventDispatcher#addListener(PropertyEventListener)}
+ * {@link PropertyEventDispatcher#addListener(PropertyEventListener)}
  * method to register for events.
  *
  * @author Matt Tucker

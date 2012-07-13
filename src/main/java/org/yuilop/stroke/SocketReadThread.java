@@ -18,7 +18,7 @@
  * limitations under the License.
  */
 
-package org.jivesoftware.whack;
+package org.yuilop.stroke;
 
 import org.dom4j.Element;
 import org.dom4j.io.XPPPacketReader;
