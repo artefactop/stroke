@@ -150,7 +150,7 @@ public class StringUtils {
         int last = 0;
         char[] input = string.toCharArray();
         int len = input.length;
-        StringBuffer out = new StringBuffer((int) (len * 1.3));
+        StringBuilder out = new StringBuilder((int) (len * 1.3));
         for (; i < len; i++) {
             ch = input[i];
             if (ch > '>') {
@@ -249,7 +249,7 @@ public class StringUtils {
      * @return generated hex string
      */
     public static final String encodeHex(byte[] bytes) {
-        StringBuffer buf = new StringBuffer(bytes.length * 2);
+        StringBuilder buf = new StringBuilder(bytes.length * 2);
         int i;
 
         for (i = 0; i < bytes.length; i++) {

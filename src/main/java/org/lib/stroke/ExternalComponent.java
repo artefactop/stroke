@@ -168,9 +168,7 @@ public class ExternalComponent implements Component {
                         CHARSET));
 
                 // Get a writer for sending the open stream tag
-                writer =
-                        new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(),
-                                CHARSET));
+                writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), CHARSET));
                 // Open the stream.
                 StringBuilder stream = new StringBuilder();
                 stream.append("<stream:stream");
@@ -316,7 +314,7 @@ public class ExternalComponent implements Component {
                         manager.getLog().warn("SEVERE - Received an IQ with no ID: " + iq.toXML());
                         return;
                     }
-                    if (IQ.Type.result == iqType || IQ.Type.error == iqType) {
+                    if (IQ.Type.result.equals(iqType) || IQ.Type.error.equals(iqType)) {
                         // The server got an answer to an IQ packet that was sent from the component
                         IQResultListener iqResultListener = resultListeners.remove(iq.getID());
                         resultTimeout.remove(iq.getID());

@@ -71,10 +71,10 @@ public class FastDateFormat {
      * Style pattern
      */
     public static final Object
-            FULL = new Integer(SimpleDateFormat.FULL),
-            LONG = new Integer(SimpleDateFormat.LONG),
-            MEDIUM = new Integer(SimpleDateFormat.MEDIUM),
-            SHORT = new Integer(SimpleDateFormat.SHORT);
+            FULL = SimpleDateFormat.FULL,
+            LONG = SimpleDateFormat.LONG,
+            MEDIUM = SimpleDateFormat.MEDIUM,
+            SHORT = SimpleDateFormat.SHORT;
 
     private static final double LOG_10 = Math.log(10);
 
@@ -203,7 +203,7 @@ public class FastDateFormat {
         if (format == null) {
             int ds;
             try {
-                ds = ((Integer) style).intValue();
+                ds = (Integer) style;
             } catch (ClassCastException e) {
                 throw new IllegalArgumentException
                         ("Illegal date style: " + style);
@@ -249,7 +249,7 @@ public class FastDateFormat {
         if (format == null) {
             int ts;
             try {
-                ts = ((Integer) style).intValue();
+                ts = (Integer) style;
             } catch (ClassCastException e) {
                 throw new IllegalArgumentException
                         ("Illegal time style: " + style);
@@ -297,7 +297,7 @@ public class FastDateFormat {
         if (format == null) {
             int ds;
             try {
-                ds = ((Integer) dateStyle).intValue();
+                ds = (Integer) dateStyle;
             } catch (ClassCastException e) {
                 throw new IllegalArgumentException
                         ("Illegal date style: " + dateStyle);
@@ -305,7 +305,7 @@ public class FastDateFormat {
 
             int ts;
             try {
-                ts = ((Integer) timeStyle).intValue();
+                ts = (Integer) timeStyle;
             } catch (ClassCastException e) {
                 throw new IllegalArgumentException
                         ("Illegal time style: " + timeStyle);
@@ -460,7 +460,7 @@ public class FastDateFormat {
                     if (sub.length() == 1) {
                         rule = new CharacterLiteral(sub.charAt(0));
                     } else {
-                        rule = new StringLiteral(new String(sub));
+                        rule = new StringLiteral(sub);
                     }
                     break;
                 default:
@@ -475,7 +475,7 @@ public class FastDateFormat {
     }
 
     private static String parseToken(String pattern, int[] indexRef) {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
 
         int i = indexRef[0];
         int length = pattern.length();
